@@ -29,7 +29,7 @@ function Videos() {
         {[
           ["Segundo Vídeo de Apresentação", "Breve descrição do Segundo Vídeo Inicial de Apresentação"],
           ["Vídeo Inicial de Apresentação", "Breve descrição do Vídeo Inicial de Apresentação"],
-        ].map(([t, d]) => (
+        ].map(([t, d]: string[]) => (
           <article key={t} className="overflow-hidden rounded-2xl bg-brand-card">
             <video controls src={SAMPLE} className="aspect-video w-full bg-brand-ink object-cover" />
             <div className="p-6"><Meta title={t} desc={d} tag="VÍDEO" /></div>

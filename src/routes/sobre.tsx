@@ -55,7 +55,7 @@ function Sobre() {
           ["Funcionalidade", "Plataforma educacional, informativa e de fácil entendimento."],
           ["Usuários", "Pais, responsáveis e crianças."],
           ["Interface", "Logo, sobre e vídeos com abordagem acolhedora."],
-        ].map(([t, d]) => (
+        ].map(([t, d]: string[]) => (
           <div key={t} className="bg-brand-cream p-3">
             <p className="border-b border-brand-ink pb-1 font-bold uppercase">{t}</p>
             <p className="pt-1">{d}</p>

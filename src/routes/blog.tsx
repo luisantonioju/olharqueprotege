@@ -30,7 +30,7 @@ function Blog() {
         {[
           [hero, "22/10/2026", "Como Identificar Sinais de Alerta", "Texto sobre como perceber comportamentos e prevenir situações de risco..."],
           [sisters, "21/10/2026", "O Papel da Comunidade na Segurança", "Texto explicando como toda a sociedade pode contribuir no projeto Olhar Que Protege..."],
-        ].map(([img, d, t, x]) => (
+        ].map(([img, d, t, x]: string[]) => (
           <article key={t} className="overflow-hidden rounded-2xl bg-brand-card">
             <img src={img} alt={t} loading="lazy" className="h-48 w-full object-cover" />
             <div className="flex flex-col p-6"><Meta by={`Por Administrador · ${d}`} title={t} desc={x} tag="LEITURA" /></div>
