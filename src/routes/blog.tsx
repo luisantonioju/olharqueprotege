@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SiteLayout } from "@/components/site";
-import { Meta } from "./videos";
+import { SiteLayout, Meta } from "@/components/site";
 import phone from "@/assets/phone.jpg";
 import hero from "@/assets/hero.jpg";
 import sisters from "@/assets/sisters.jpg";

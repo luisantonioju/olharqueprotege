@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SiteLayout } from "@/components/site";
+import { SiteLayout, Meta } from "@/components/site";
 
 export const Route = createFileRoute("/videos")({
   head: () => ({
@@ -40,13 +40,3 @@ function Videos() {
   );
 }
 
-export function Meta({ title, desc, tag, big, by = "Por Alessandro 23/10/2026" }: { title: string; desc: string; tag: string; big?: boolean; by?: string }) {
-  return (
-    <>
-      <p className="text-xs opacity-60">{by}</p>
-      <h2 className={`mt-2 font-bold ${big ? "text-3xl" : "text-xl"}`}>{title}</h2>
-      <p className="mt-2">{desc}</p>
-      <span className="mt-4 w-fit rounded-full bg-brand-cream px-4 py-1 text-xs font-bold">{tag}</span>
-    </>
-  );
-}
