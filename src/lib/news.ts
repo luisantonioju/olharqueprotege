@@ -1,6 +1,4 @@
 import { XMLParser } from "fast-xml-parser";
-import { queryOptions } from "@tanstack/react-query";
-import { getNews } from "./news.functions";
 
 export const NEWS_QUERY =
   '("proteção infantil" OR "segurança digital" OR cyberbullying OR "ECA Digital") (crianças OR adolescentes) Brasil when:30d';
@@ -26,10 +24,3 @@ export function parseNewsFeed(xml: string): NewsItem[] {
     .filter((i) => i.title && i.link.startsWith("https://"))
     .sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 }
-
-export const newsQuery = queryOptions({
-  queryKey: ["news"],
-  queryFn: () => getNews(),
-  staleTime: 15 * 60 * 1000,
-  refetchInterval: 15 * 60 * 1000,
-});
