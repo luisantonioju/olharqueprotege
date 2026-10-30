@@ -6,6 +6,8 @@ import { ArrowUpRight } from "lucide-react";
 export const Route = createFileRoute("/videos")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Vídeos — Olhar Que Protege" },
       { name: "description", content: "Vídeos educativos sobre segurança digital infantil." },
       { property: "og:title", content: "Vídeos — Olhar Que Protege" },

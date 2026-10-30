@@ -9,6 +9,8 @@ import family from "@/assets/family.jpg";
 export const Route = createFileRoute("/home")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Home — Olhar Que Protege" },
       { name: "description", content: "Monitorar é cuidar: segurança digital para suas filhas." },
       { property: "og:title", content: "Home — Olhar Que Protege" },

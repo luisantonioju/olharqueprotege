@@ -5,6 +5,8 @@ import { AuthCard, Field, Logo } from "@/components/site";
 export const Route = createFileRoute("/extras/cadastro")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Cadastro — Olhar Que Protege" },
       { name: "description", content: "Crie sua conta no Olhar Que Protege." },
       { property: "og:title", content: "Cadastro — Olhar Que Protege" },

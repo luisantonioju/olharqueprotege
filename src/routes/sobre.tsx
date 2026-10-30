@@ -6,6 +6,8 @@ import sisters from "@/assets/sisters.jpg";
 export const Route = createFileRoute("/sobre")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Sobre — Olhar Que Protege" },
       { name: "description", content: "Conheça o projeto Olhar Que Protege e a ODS 5.2." },
       { property: "og:title", content: "Sobre — Olhar Que Protege" },

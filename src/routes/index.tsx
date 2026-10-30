@@ -6,6 +6,8 @@ export const Route = createFileRoute("/")({
   },
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Olhar Que Protege" },
       { name: "description", content: "Segurança digital para crianças e adolescentes." },
       { property: "og:title", content: "Olhar Que Protege" },

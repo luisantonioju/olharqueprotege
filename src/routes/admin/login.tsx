@@ -5,6 +5,8 @@ import { Field, Logo } from "@/components/site";
 export const Route = createFileRoute("/admin/login")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Painel da Equipe — Olhar Que Protege" },
       { name: "description", content: "Acesso restrito para administradores." },
       { property: "og:title", content: "Painel da Equipe — Olhar Que Protege" },
