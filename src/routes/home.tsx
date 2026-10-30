@@ -31,7 +31,7 @@ function Home() {
     const t = setInterval(() => setI((v) => (v + 1) % slides.length), 5000);
     return () => clearInterval(t);
   }, []);
-  const s = slides[i];
+  const s = slides[i] ?? slides[0]!;
   return (
     <SiteLayout>
       <h1 className="mx-auto flex w-fit items-center gap-2 border-b-4 border-brand-accent px-12 pb-4 text-3xl font-bold text-brand-accent">

@@ -27,7 +27,7 @@ function Cadastro() {
         onSubmit={(e) => {
           e.preventDefault();
           const p = [...e.currentTarget.querySelectorAll<HTMLInputElement>("input[type=password]")];
-          setMsg(p[0].value !== p[1].value ? "As senhas não conferem." : "Cadastro recebido!");
+          setMsg(p[0]?.value !== p[1]?.value ? "As senhas não conferem." : "Cadastro recebido!");
         }}
       >
         <Field label="Nome completo" placeholder="Seu nome completo" />
