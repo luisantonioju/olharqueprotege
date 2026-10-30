@@ -173,3 +173,20 @@
   --color-brand-admin: var(--brand-admin);
   --font-brand: "Montserrat", ui-sans-serif, system-ui, sans-serif;
 }
+
+@media (max-width: 639px) {
+  .care-collage {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    height: auto;
+    padding: 20px;
+  }
+  .care-collage > * {
+    position: static;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    font-size: 24px;
+  }
+}

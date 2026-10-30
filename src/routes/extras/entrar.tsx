@@ -5,6 +5,8 @@ import { AuthCard, Field, Logo } from "@/components/site";
 export const Route = createFileRoute("/extras/entrar")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Entrar — Olhar Que Protege" },
       { name: "description", content: "Entre na sua conta do Olhar Que Protege." },
       { property: "og:title", content: "Entrar — Olhar Que Protege" },

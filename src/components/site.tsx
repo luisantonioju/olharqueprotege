@@ -1,5 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import { Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { SiteSearch } from "./site-search";
 
 export function Logo({ size = 48 }: { size?: number }) {
   return (
@@ -43,22 +47,19 @@ const nav = [
 export function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-brand-bg font-brand text-brand-ink">
-      <header className="mx-auto max-w-6xl px-4 pt-6">
-        <div className="flex flex-col items-center justify-between gap-4 rounded-xl bg-brand-cream px-8 py-6 shadow-lg md:flex-row">
-          <Link to="/home">
-            <Logo />
-          </Link>
-          <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2">
-            {nav.map((n) => (
-              <Link
-                key={n.label}
-                to={n.to}
-                className="font-bold text-brand-ink transition-opacity hover:opacity-70"
-              >
-                {n.label}
-              </Link>
-            ))}
-          </nav>
+      <header className="border-b border-brand-accent/20 bg-brand-cream">
+        <div className="mx-auto grid max-w-6xl grid-cols-[minmax(44px,1fr)_auto_minmax(44px,1fr)] items-center gap-3 px-4 py-4 sm:px-8 sm:py-5">
+          <div className="min-w-0 justify-self-start"><SiteSearch /></div>
+          <Link to="/home" aria-label="Olhar Que Protege — início" className="justify-self-center"><Logo size={56} /></Link>
+          <Sheet>
+            <SheetTrigger asChild><Button variant="ghost" size="icon" aria-label="Abrir menu" title="Abrir menu" className="h-11 w-11 justify-self-end text-brand-ink hover:bg-brand-card"><Menu className="size-6" /></Button></SheetTrigger>
+            <SheetContent aria-describedby={undefined} className="overflow-y-auto bg-brand-cream font-brand text-brand-ink">
+              <SheetTitle className="text-brand-ink">Menu</SheetTitle>
+              <nav className="mt-8 flex flex-col gap-2" aria-label="Menu principal">
+                {nav.map((n) => <SheetClose key={n.label} asChild><Link to={n.to} className="rounded-md px-4 py-3 text-lg font-semibold hover:bg-brand-card" activeProps={{ className: "bg-brand-card" }}>{n.label}</Link></SheetClose>)}
+              </nav>
+            </SheetContent>
+          </Sheet>
         </div>
       </header>
       <main className="mx-auto max-w-6xl px-4 pb-16 pt-10">{children}</main>
