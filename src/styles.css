@@ -142,3 +142,34 @@
     color: var(--color-foreground);
   }
 }
+
+/* Olhar Que Protege brand tokens */
+:root {
+  --brand-bg: oklch(0.83 0.06 280);
+  --brand-cream: oklch(0.97 0.025 80);
+  --brand-panel: oklch(0.74 0.08 280);
+  --brand-panel-strong: oklch(0.64 0.09 280);
+  --brand-card: oklch(0.86 0.06 280);
+  --brand-ink: oklch(0.25 0.12 285);
+  --brand-accent: oklch(0.62 0.1 280);
+  --brand-orange: oklch(0.68 0.19 40);
+  --brand-plum: oklch(0.32 0.15 320);
+  --brand-blue: oklch(0.62 0.13 275);
+  --brand-white: oklch(1 0 0);
+  --brand-admin: oklch(0.5 0.22 275);
+}
+@theme inline {
+  --color-brand-bg: var(--brand-bg);
+  --color-brand-cream: var(--brand-cream);
+  --color-brand-panel: var(--brand-panel);
+  --color-brand-panel-strong: var(--brand-panel-strong);
+  --color-brand-card: var(--brand-card);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-orange: var(--brand-orange);
+  --color-brand-plum: var(--brand-plum);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-white: var(--brand-white);
+  --color-brand-admin: var(--brand-admin);
+  --font-brand: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+}
