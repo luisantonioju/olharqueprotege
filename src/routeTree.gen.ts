@@ -10,33 +10,128 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BlogRouteImport } from './routes/blog'
+import { Route as HomeRouteImport } from './routes/home'
+import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as VideosRouteImport } from './routes/videos'
+import { Route as AdminLoginRouteImport } from './routes/admin/login'
+import { Route as ExtrasCadastroRouteImport } from './routes/extras/cadastro'
+import { Route as ExtrasEntrarRouteImport } from './routes/extras/entrar'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeRoute = HomeRouteImport.update({
+  id: '/home',
+  path: '/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VideosRoute = VideosRouteImport.update({
+  id: '/videos',
+  path: '/videos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExtrasCadastroRoute = ExtrasCadastroRouteImport.update({
+  id: '/extras/cadastro',
+  path: '/extras/cadastro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExtrasEntrarRoute = ExtrasEntrarRouteImport.update({
+  id: '/extras/entrar',
+  path: '/extras/entrar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/blog': typeof BlogRoute
+  '/home': typeof HomeRoute
+  '/sobre': typeof SobreRoute
+  '/videos': typeof VideosRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/extras/cadastro': typeof ExtrasCadastroRoute
+  '/extras/entrar': typeof ExtrasEntrarRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/blog': typeof BlogRoute
+  '/home': typeof HomeRoute
+  '/sobre': typeof SobreRoute
+  '/videos': typeof VideosRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/extras/cadastro': typeof ExtrasCadastroRoute
+  '/extras/entrar': typeof ExtrasEntrarRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/blog': typeof BlogRoute
+  '/home': typeof HomeRoute
+  '/sobre': typeof SobreRoute
+  '/videos': typeof VideosRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/extras/cadastro': typeof ExtrasCadastroRoute
+  '/extras/entrar': typeof ExtrasEntrarRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/blog'
+    | '/home'
+    | '/sobre'
+    | '/videos'
+    | '/admin/login'
+    | '/extras/cadastro'
+    | '/extras/entrar'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/blog'
+    | '/home'
+    | '/sobre'
+    | '/videos'
+    | '/admin/login'
+    | '/extras/cadastro'
+    | '/extras/entrar'
+  id:
+    | '__root__'
+    | '/'
+    | '/blog'
+    | '/home'
+    | '/sobre'
+    | '/videos'
+    | '/admin/login'
+    | '/extras/cadastro'
+    | '/extras/entrar'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BlogRoute: typeof BlogRoute
+  HomeRoute: typeof HomeRoute
+  SobreRoute: typeof SobreRoute
+  VideosRoute: typeof VideosRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  ExtrasCadastroRoute: typeof ExtrasCadastroRoute
+  ExtrasEntrarRoute: typeof ExtrasEntrarRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +143,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/home': {
+      id: '/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof HomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/videos': {
+      id: '/videos'
+      path: '/videos'
+      fullPath: '/videos'
+      preLoaderRoute: typeof VideosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/extras/cadastro': {
+      id: '/extras/cadastro'
+      path: '/extras/cadastro'
+      fullPath: '/extras/cadastro'
+      preLoaderRoute: typeof ExtrasCadastroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/extras/entrar': {
+      id: '/extras/entrar'
+      path: '/extras/entrar'
+      fullPath: '/extras/entrar'
+      preLoaderRoute: typeof ExtrasEntrarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BlogRoute: BlogRoute,
+  HomeRoute: HomeRoute,
+  SobreRoute: SobreRoute,
+  VideosRoute: VideosRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  ExtrasCadastroRoute: ExtrasCadastroRoute,
+  ExtrasEntrarRoute: ExtrasEntrarRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
