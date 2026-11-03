@@ -40,7 +40,7 @@ const nav = [
   { to: "/blog", label: "Blog" },
   { to: "/extras/cadastro", label: "Cadastrar-me" },
   { to: "/extras/entrar", label: "Entrar" },
-  { to: "/extras/cadastro", label: "Extras" },
+  { to: "/extras/conteudo", label: "Extras" },
   { to: "/admin/login", label: "Equipe" },
 ] as const;
 
@@ -79,16 +79,19 @@ export function Field({
   label,
   type = "text",
   placeholder,
+  name,
 }: {
   label: string;
   type?: string;
   placeholder?: string;
+  name?: string;
 }) {
   return (
     <label className="block">
       <span className="mb-2 block text-sm font-bold">{label}</span>
       <input
         required
+        name={name ?? type}
         type={type}
         placeholder={placeholder}
         minLength={type === "password" ? 8 : undefined}
