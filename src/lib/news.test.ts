@@ -12,3 +12,9 @@ describe("parseNewsFeed", () => {
     expect(items[0]?.source).toBe("CNN");
   });
 });
+describe("directLink", () => {
+  it("opens the original news site instead of the aggregator", async () => {
+    const { directLink } = await import("./news");
+    expect(directLink("http://www.bing.com/news/apiclick.aspx?ref=FexRss&url=https%3a%2f%2fg1.globo.com%2fa&c=1")).toBe("https://g1.globo.com/a");
+  });
+});
