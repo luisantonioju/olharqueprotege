@@ -48,7 +48,7 @@ function Painel() {
     const { data: u } = await supabase.auth.getUser();
     const { error } = draft.id
       ? await supabase.from("posts").update(row).eq("id", draft.id)
-      : await supabase.from("posts").insert({ ...row, author_id: u.user?.id });
+      : await supabase.from("posts").insert({ ...row, author_id: u.user?.id ?? null });
     if (error) return setMsg("Não foi possível salvar.");
     setMsg(draft.id ? "Notícia atualizada!" : "Notícia publicada no Blog!");
     setDraft(empty);
