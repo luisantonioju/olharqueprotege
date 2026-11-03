@@ -12,4 +12,5 @@ export const PAGES = [
   { to: "/extras/cadastro", label: "Cadastrar-me", text: "Criar conta" },
   { to: "/extras/entrar", label: "Entrar", text: "Login conta" },
   { to: "/admin/login", label: "Equipe", text: "Painel administradores" },
+  { to: "/extras/conteudo", label: "Extras", text: "Conteúdos exclusivos guia família denúncia" },
 ] as const;

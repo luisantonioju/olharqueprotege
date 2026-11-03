@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { postsQuery } from "@/lib/posts-query";
 import { ArrowUpRight, RefreshCw, Newspaper } from "lucide-react";
 import { SiteLayout } from "@/components/site";
 import { Button } from "@/components/ui/button";
@@ -18,10 +19,27 @@ export const Route = createFileRoute("/blog")({
   component: Blog,
 });
 
+function TeamPosts() {
+  const { data } = useQuery(postsQuery);
+  if (!data?.length) return null;
+  return <section className="mt-10">
+    <h2 className="border-b border-brand-accent/30 pb-5 text-xl font-bold">Publicações da equipe</h2>
+    <div className="mt-6 grid gap-5 md:grid-cols-2">
+      {data.map((p) => <article key={p.id} className="flex min-w-0 flex-col rounded-lg bg-brand-cream p-6">
+        <p className="text-xs font-semibold opacity-70">{p.source} · {new Date(p.created_at).toLocaleDateString("pt-BR")}</p>
+        <h3 className="mt-3 text-lg font-bold">{p.title}</h3>
+        {p.summary && <p className="mt-2 whitespace-pre-line">{p.summary}</p>}
+        {p.link && <a href={p.link} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex w-fit items-center gap-2 text-sm font-semibold underline underline-offset-4">Ler notícia <ArrowUpRight className="size-4" /></a>}
+      </article>)}
+    </div>
+  </section>;
+}
+
 function Blog() {
   const { data, refetch, isFetching } = useSuspenseQuery(newsQuery);
   return <SiteLayout>
     <h1 className="text-center text-4xl font-extrabold sm:text-5xl">BLOG</h1>
+    <TeamPosts />
     <div className="mt-10 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 border-b border-brand-accent/30 pb-5">
       <div className="min-w-0"><h2 className="text-xl font-bold">Últimas notícias no Brasil</h2><p className="mt-2 text-xs opacity-70">Google Notícias · Proteção infantil e segurança digital</p></div>
       <Button variant="ghost" size="icon" aria-label="Atualizar notícias" title="Atualizar notícias" disabled={isFetching} onClick={() => void refetch()} className="text-brand-ink hover:bg-brand-cream"><RefreshCw className={isFetching ? "animate-spin" : ""} /></Button>
