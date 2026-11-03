@@ -18,6 +18,7 @@ import { Route as VideosRouteImport } from './routes/videos'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as ExtrasCadastroRouteImport } from './routes/extras/cadastro'
 import { Route as ExtrasEntrarRouteImport } from './routes/extras/entrar'
+import { Route as AuthenticatedAdminPainelRouteImport } from './routes/_authenticated/admin/painel'
 import { Route as AuthenticatedExtrasConteudoRouteImport } from './routes/_authenticated/extras/conteudo'
 
 const IndexRoute = IndexRouteImport.update({
@@ -64,6 +65,12 @@ const ExtrasEntrarRoute = ExtrasEntrarRouteImport.update({
   path: '/extras/entrar',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminPainelRoute =
+  AuthenticatedAdminPainelRouteImport.update({
+    id: '/admin/painel',
+    path: '/admin/painel',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedExtrasConteudoRoute =
   AuthenticatedExtrasConteudoRouteImport.update({
     id: '/extras/conteudo',
@@ -80,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/admin/login': typeof AdminLoginRoute
   '/extras/cadastro': typeof ExtrasCadastroRoute
   '/extras/entrar': typeof ExtrasEntrarRoute
+  '/admin/painel': typeof AuthenticatedAdminPainelRoute
   '/extras/conteudo': typeof AuthenticatedExtrasConteudoRoute
 }
 export interface FileRoutesByTo {
@@ -91,6 +99,7 @@ export interface FileRoutesByTo {
   '/admin/login': typeof AdminLoginRoute
   '/extras/cadastro': typeof ExtrasCadastroRoute
   '/extras/entrar': typeof ExtrasEntrarRoute
+  '/admin/painel': typeof AuthenticatedAdminPainelRoute
   '/extras/conteudo': typeof AuthenticatedExtrasConteudoRoute
 }
 export interface FileRoutesById {
@@ -104,6 +113,7 @@ export interface FileRoutesById {
   '/admin/login': typeof AdminLoginRoute
   '/extras/cadastro': typeof ExtrasCadastroRoute
   '/extras/entrar': typeof ExtrasEntrarRoute
+  '/_authenticated/admin/painel': typeof AuthenticatedAdminPainelRoute
   '/_authenticated/extras/conteudo': typeof AuthenticatedExtrasConteudoRoute
 }
 export interface FileRouteTypes {
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/extras/cadastro'
     | '/extras/entrar'
+    | '/admin/painel'
     | '/extras/conteudo'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/extras/cadastro'
     | '/extras/entrar'
+    | '/admin/painel'
     | '/extras/conteudo'
   id:
     | '__root__'
@@ -140,6 +152,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/extras/cadastro'
     | '/extras/entrar'
+    | '/_authenticated/admin/painel'
     | '/_authenticated/extras/conteudo'
   fileRoutesById: FileRoutesById
 }
@@ -220,6 +233,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExtrasEntrarRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/painel': {
+      id: '/_authenticated/admin/painel'
+      path: '/admin/painel'
+      fullPath: '/admin/painel'
+      preLoaderRoute: typeof AuthenticatedAdminPainelRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/extras/conteudo': {
       id: '/_authenticated/extras/conteudo'
       path: '/extras/conteudo'
@@ -231,10 +251,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminPainelRoute: typeof AuthenticatedAdminPainelRoute
   AuthenticatedExtrasConteudoRoute: typeof AuthenticatedExtrasConteudoRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminPainelRoute: AuthenticatedAdminPainelRoute,
   AuthenticatedExtrasConteudoRoute: AuthenticatedExtrasConteudoRoute,
 }
 
