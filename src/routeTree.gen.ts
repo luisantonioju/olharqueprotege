@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as HomeRouteImport } from './routes/home'
 import { Route as SobreRouteImport } from './routes/sobre'
@@ -17,10 +18,15 @@ import { Route as VideosRouteImport } from './routes/videos'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as ExtrasCadastroRouteImport } from './routes/extras/cadastro'
 import { Route as ExtrasEntrarRouteImport } from './routes/extras/entrar'
+import { Route as AuthenticatedExtrasConteudoRouteImport } from './routes/_authenticated/extras/conteudo'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogRoute = BlogRouteImport.update({
@@ -58,6 +64,12 @@ const ExtrasEntrarRoute = ExtrasEntrarRouteImport.update({
   path: '/extras/entrar',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedExtrasConteudoRoute =
+  AuthenticatedExtrasConteudoRouteImport.update({
+    id: '/extras/conteudo',
+    path: '/extras/conteudo',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -68,6 +80,7 @@ export interface FileRoutesByFullPath {
   '/admin/login': typeof AdminLoginRoute
   '/extras/cadastro': typeof ExtrasCadastroRoute
   '/extras/entrar': typeof ExtrasEntrarRoute
+  '/extras/conteudo': typeof AuthenticatedExtrasConteudoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,10 +91,12 @@ export interface FileRoutesByTo {
   '/admin/login': typeof AdminLoginRoute
   '/extras/cadastro': typeof ExtrasCadastroRoute
   '/extras/entrar': typeof ExtrasEntrarRoute
+  '/extras/conteudo': typeof AuthenticatedExtrasConteudoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/blog': typeof BlogRoute
   '/home': typeof HomeRoute
   '/sobre': typeof SobreRoute
@@ -89,6 +104,7 @@ export interface FileRoutesById {
   '/admin/login': typeof AdminLoginRoute
   '/extras/cadastro': typeof ExtrasCadastroRoute
   '/extras/entrar': typeof ExtrasEntrarRoute
+  '/_authenticated/extras/conteudo': typeof AuthenticatedExtrasConteudoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +117,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/extras/cadastro'
     | '/extras/entrar'
+    | '/extras/conteudo'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,9 +128,11 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/extras/cadastro'
     | '/extras/entrar'
+    | '/extras/conteudo'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/blog'
     | '/home'
     | '/sobre'
@@ -121,10 +140,12 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/extras/cadastro'
     | '/extras/entrar'
+    | '/_authenticated/extras/conteudo'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   BlogRoute: typeof BlogRoute
   HomeRoute: typeof HomeRoute
   SobreRoute: typeof SobreRoute
@@ -141,6 +162,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog': {
@@ -192,11 +220,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExtrasEntrarRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/extras/conteudo': {
+      id: '/_authenticated/extras/conteudo'
+      path: '/extras/conteudo'
+      fullPath: '/extras/conteudo'
+      preLoaderRoute: typeof AuthenticatedExtrasConteudoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedExtrasConteudoRoute: typeof AuthenticatedExtrasConteudoRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedExtrasConteudoRoute: AuthenticatedExtrasConteudoRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   BlogRoute: BlogRoute,
   HomeRoute: HomeRoute,
   SobreRoute: SobreRoute,
