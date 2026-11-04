@@ -8,6 +8,13 @@
       "when": 1793725977500,
       "tag": "0000_roles_and_posts",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793807778241,
+      "tag": "0001_media_videos_profiles_presence",
+      "breakpoints": true
     }
   ]
 }

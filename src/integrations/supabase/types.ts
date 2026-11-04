@@ -17,33 +17,84 @@ export type Database = {
       posts: {
         Row: {
           author_id: string | null
+          caption: string
+          content: string
           created_at: string
           id: string
+          images: Json
           link: string | null
           source: string
+          status: string
           summary: string
           title: string
           updated_at: string
         }
         Insert: {
           author_id?: string | null
+          caption?: string
+          content?: string
           created_at?: string
           id?: string
+          images?: Json
           link?: string | null
           source?: string
+          status?: string
           summary?: string
           title: string
           updated_at?: string
         }
         Update: {
           author_id?: string | null
+          caption?: string
+          content?: string
           created_at?: string
           id?: string
+          images?: Json
           link?: string | null
           source?: string
+          status?: string
           summary?: string
           title?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string
+          full_name?: string
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_presence: {
+        Row: {
+          last_seen: string
+          user_id: string
+        }
+        Insert: {
+          last_seen?: string
+          user_id: string
+        }
+        Update: {
+          last_seen?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -65,11 +116,73 @@ export type Database = {
         }
         Relationships: []
       }
+      videos: {
+        Row: {
+          author_id: string | null
+          created_at: string
+          description: string
+          file_path: string | null
+          id: string
+          kind: string
+          provider_id: string | null
+          source_url: string | null
+          status: string
+          thumbnail_path: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author_id?: string | null
+          created_at?: string
+          description?: string
+          file_path?: string | null
+          id?: string
+          kind: string
+          provider_id?: string | null
+          source_url?: string | null
+          status?: string
+          thumbnail_path?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string | null
+          created_at?: string
+          description?: string
+          file_path?: string | null
+          id?: string
+          kind?: string
+          provider_id?: string | null
+          source_url?: string | null
+          status?: string
+          thumbnail_path?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      admin_list_users: {
+        Args: { _limit: number; _offset: number; _search: string }
+        Returns: {
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          total: number
+        }[]
+      }
+      admin_user_stats: {
+        Args: never
+        Returns: {
+          online: number
+          total: number
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -77,6 +190,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      touch_presence: { Args: never; Returns: undefined }
     }
     Enums: {
       app_role: "admin" | "user"
