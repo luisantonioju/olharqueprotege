@@ -27,8 +27,15 @@ function TeamPosts() {
     <div className="mt-6 grid gap-5 md:grid-cols-2">
       {data.map((p) => <article key={p.id} className="flex min-w-0 flex-col rounded-lg bg-brand-cream p-6">
         <p className="text-xs font-semibold opacity-70">{p.source} · {new Date(p.created_at).toLocaleDateString("pt-BR")}</p>
+        {p.imageUrls.length > 0 && <figure className="mt-4">
+          <div className={`grid gap-2 ${p.imageUrls.length > 1 ? "grid-cols-2" : ""}`}>
+            {p.imageUrls.map((u, k) => <img key={u} src={u} alt={p.caption || p.title} loading="lazy" className={`w-full rounded-md object-cover ${k === 0 && p.imageUrls.length > 1 ? "col-span-2 aspect-video" : "aspect-video"}`} />)}
+          </div>
+          {p.caption && <figcaption className="mt-2 text-xs opacity-70">{p.caption}</figcaption>}
+        </figure>}
         <h3 className="mt-3 text-lg font-bold">{p.title}</h3>
-        {p.summary && <p className="mt-2 whitespace-pre-line">{p.summary}</p>}
+        {p.summary && <p className="mt-2 whitespace-pre-line font-medium">{p.summary}</p>}
+        {p.content && <p className="mt-3 whitespace-pre-line text-sm">{p.content}</p>}
         {p.link && <a href={p.link} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex w-fit items-center gap-2 text-sm font-semibold underline underline-offset-4">Ler notícia <ArrowUpRight className="size-4" /></a>}
       </article>)}
     </div>
