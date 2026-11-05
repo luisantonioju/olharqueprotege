@@ -15,6 +15,13 @@
       "when": 1793807778241,
       "tag": "0001_media_videos_profiles_presence",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793842252055,
+      "tag": "0002_admin_list_users_verified",
+      "breakpoints": true
     }
   ]
 }

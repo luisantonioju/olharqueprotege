@@ -2,6 +2,9 @@ import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { signedUrls } from "@/lib/media";
 
+/** Photos added by link are stored as full https URLs; uploads as storage paths. */
+export const isExternal = (x: string) => x.startsWith("https://");
+
 export const imagesOf = (v: unknown): string[] => (Array.isArray(v) ? v.filter((x): x is string => typeof x === "string") : []);
 
 async function load(publishedOnly: boolean) {
@@ -9,8 +12,8 @@ async function load(publishedOnly: boolean) {
   if (publishedOnly) q = q.eq("status", "published");
   const { data, error } = await q;
   if (error) throw error;
-  const urls = await signedUrls("blog-media", data.flatMap((p) => imagesOf(p.images)));
-  return data.map((p) => ({ ...p, imagePaths: imagesOf(p.images), imageUrls: imagesOf(p.images).map((x) => urls[x]).filter(Boolean) as string[] }));
+  const urls = await signedUrls("blog-media", data.flatMap((p) => imagesOf(p.images)).filter((x) => !isExternal(x)));
+  return data.map((p) => ({ ...p, imagePaths: imagesOf(p.images), imageUrls: imagesOf(p.images).map((x) => (isExternal(x) ? x : urls[x])).filter(Boolean) as string[] }));
 }
 
 export const postsQuery = queryOptions({ queryKey: ["posts", "public"], queryFn: () => load(true) });

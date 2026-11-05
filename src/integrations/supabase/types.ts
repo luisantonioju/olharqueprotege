@@ -176,6 +176,17 @@ export type Database = {
           total: number
         }[]
       }
+      admin_list_users_v2: {
+        Args: { _limit: number; _offset: number; _search: string }
+        Returns: {
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          total: number
+          verified: boolean
+        }[]
+      }
       admin_user_stats: {
         Args: never
         Returns: {
