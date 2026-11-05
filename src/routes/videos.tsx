@@ -33,7 +33,7 @@ function Videos() {
           <div className="p-5 sm:p-6">
             <h2 className="text-lg font-bold sm:text-xl">{v.title}</h2>
             {v.description && <p className="mt-2 whitespace-pre-line text-sm">{v.description}</p>}
-            {v.source_url && v.kind !== "upload" && <a href={v.source_url} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold underline underline-offset-4">Abrir no site original <ArrowUpRight className="size-4" /></a>}
+            {v.source_url && v.kind !== "file" && <a href={v.source_url} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold underline underline-offset-4">Abrir no site original <ArrowUpRight className="size-4" /></a>}
           </div>
         </article>)}
       </div>
