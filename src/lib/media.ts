@@ -24,9 +24,9 @@ export function uploadFile(bucket: Bucket, file: File, onProgress: (pct: number)
     const token = data.session?.access_token;
     if (!token) throw new Error("Sessão expirada. Entre novamente.");
     return new Promise<string>((resolve, reject) => {
-      xhr.open("POST", `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/${bucket}/${path}`);
+      xhr.open("POST", `${import.meta.env["VITE_SUPABASE_URL"]}/storage/v1/object/${bucket}/${path}`);
       xhr.setRequestHeader("Authorization", `Bearer ${token}`);
-      xhr.setRequestHeader("apikey", import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY);
+      xhr.setRequestHeader("apikey", import.meta.env["VITE_SUPABASE_PUBLISHABLE_KEY"]);
       xhr.setRequestHeader("Content-Type", file.type);
       xhr.setRequestHeader("x-upsert", "false");
       xhr.upload.onprogress = (e) => { if (e.lengthComputable) onProgress(Math.round((e.loaded / e.total) * 100)); };
