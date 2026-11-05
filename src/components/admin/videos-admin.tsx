@@ -15,7 +15,7 @@ export function VideosAdmin() {
   const qc = useQueryClient();
   const videos = useQuery(adminVideosQuery);
   const [draft, setDraft] = useState<Draft>(empty);
-  const [preview, setPreview] = useState<{ file?: string; thumb?: string }>({});
+  const [preview, setPreview] = useState<{ file?: string | undefined; thumb?: string | undefined }>({});
   const [uploads, setUploads] = useState<Record<"file" | "thumb", UploadState | undefined>>({ file: undefined, thumb: undefined });
   const [msg, setMsg] = useState("");
   const [busy, setBusy] = useState(false);
