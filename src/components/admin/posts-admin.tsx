@@ -3,7 +3,7 @@ import { useState } from "react";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import { adminPostsQuery } from "@/lib/posts-query";
+import { adminPostsQuery, isExternal } from "@/lib/posts-query";
 import { removeFiles, signedUrls, uploadFile } from "@/lib/media";
 import { checkFile } from "@/lib/video-url";
 import { field, StatusBadge, UploadBar, type UploadState } from "./upload-bar";
@@ -18,6 +18,7 @@ export function PostsAdmin() {
   const [previews, setPreviews] = useState<Record<string, string>>({});
   const [uploads, setUploads] = useState<Record<string, UploadState>>({});
   const [msg, setMsg] = useState("");
+  const [imgUrl, setImgUrl] = useState("");
   const [busy, setBusy] = useState(false);
   const uploading = Object.values(uploads).some((u) => !u.error);
 
@@ -30,6 +31,13 @@ export function PostsAdmin() {
       setDraft((d) => ({ ...d, images: [...d.images, path] }));
       setUploads((s) => { const n = { ...s }; delete n[key]; return n; });
     }).catch((e: Error) => setUploads((s) => ({ ...s, [key]: { name: file.name, pct: 0, error: e.message, retry: () => startUpload(file, key) } })));
+  }
+
+  function addUrl() {
+    const u = imgUrl.trim();
+    try { if (new URL(u).protocol !== "https:") throw 0; } catch { return setMsg("O link da foto precisa começar com https://"); }
+    setMsg(""); setImgUrl("");
+    setDraft((d) => (d.images.includes(u) ? d : { ...d, images: [...d.images, u] }));
   }
 
   function pick(files: FileList | null) {
@@ -45,7 +53,7 @@ export function PostsAdmin() {
     const p = posts.data?.find((x) => x.id === id);
     if (!p) return;
     setMsg(""); setUploads({});
-    setPreviews(await signedUrls("blog-media", p.imagePaths));
+    setPreviews(await signedUrls("blog-media", p.imagePaths.filter((x) => !isExternal(x))));
     setDraft({ id: p.id, title: p.title, summary: p.summary, content: p.content, caption: p.caption, link: p.link ?? "", source: p.source, images: p.imagePaths });
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -78,7 +86,7 @@ export function PostsAdmin() {
     if (!confirm("Excluir esta publicação e suas fotos? Essa ação não pode ser desfeita.")) return;
     const { error } = await supabase.from("posts").delete().eq("id", id);
     if (error) return setMsg("Não foi possível excluir.");
-    await removeFiles("blog-media", images);
+    await removeFiles("blog-media", images.filter((x) => !isExternal(x)));
     if (draft.id === id) setDraft(empty);
     void qc.invalidateQueries({ queryKey: ["posts"] });
   }
@@ -93,10 +101,14 @@ export function PostsAdmin() {
         <label className="text-sm font-semibold">Fotos (JPG, PNG, WEBP ou GIF até 10 MB)</label>
         <input type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple className="mt-2 block w-full text-sm" onChange={(e) => { pick(e.target.files); e.target.value = ""; }} />
       </div>
+      <div className="flex gap-2">
+        <input className={field} placeholder="Ou cole o link da foto (https://...)" value={imgUrl} onChange={(e) => setImgUrl(e.target.value)} />
+        <Button type="button" variant="outline" className="h-auto" onClick={addUrl}>Adicionar</Button>
+      </div>
       {Object.entries(uploads).map(([k, u]) => <UploadBar key={k} u={u} />)}
       {draft.images.length > 0 && <div className="grid grid-cols-3 gap-2">
         {draft.images.map((p) => <div key={p} className="relative aspect-square overflow-hidden rounded-lg bg-muted">
-          {previews[p] && <img src={previews[p]} alt="" className="h-full w-full object-cover" />}
+          {(previews[p] ?? (isExternal(p) ? p : "")) && <img src={previews[p] ?? p} alt="" className="h-full w-full object-cover" />}
           <button type="button" aria-label="Remover foto" onClick={() => setDraft({ ...draft, images: draft.images.filter((x) => x !== p) })} className="absolute right-1 top-1 rounded-full bg-card p-1 shadow"><X className="size-3" /></button>
         </div>)}
       </div>}

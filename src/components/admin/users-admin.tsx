@@ -36,7 +36,7 @@ export function UsersAdmin() {
     queryKey: ["admin", "users", search, page],
     placeholderData: keepPreviousData,
     queryFn: async () => {
-      const { data, error } = await supabase.rpc("admin_list_users", { _search: search, _offset: page * PAGE, _limit: PAGE });
+      const { data, error } = await supabase.rpc("admin_list_users_v2", { _search: search, _offset: page * PAGE, _limit: PAGE });
       if (error) throw error;
       return data;
     },
@@ -55,8 +55,8 @@ export function UsersAdmin() {
       {users.data?.length === 0 && <p className="mt-4 text-muted-foreground">{search ? "Nenhum usuário encontrado." : "Nenhum usuário cadastrado ainda."}</p>}
       {!!users.data?.length && <div className="mt-4 overflow-x-auto">
         <table className="w-full text-left text-sm">
-          <thead className="text-muted-foreground"><tr><th className="py-2 pr-4">Nome</th><th className="py-2 pr-4">E-mail</th><th className="py-2">Cadastro</th></tr></thead>
-          <tbody>{users.data.map((u) => <tr key={u.id} className="border-t border-input"><td className="py-2 pr-4">{u.full_name || "—"}</td><td className="py-2 pr-4 break-all">{u.email}</td><td className="py-2 whitespace-nowrap">{new Date(u.created_at).toLocaleDateString("pt-BR")}</td></tr>)}</tbody>
+          <thead className="text-muted-foreground"><tr><th className="py-2 pr-4">Nome</th><th className="py-2 pr-4">E-mail</th><th className="py-2 pr-4">E-mail verificado</th><th className="py-2">Cadastro</th></tr></thead>
+          <tbody>{users.data.map((u) => <tr key={u.id} className="border-t border-input"><td className="py-2 pr-4">{u.full_name || "—"}</td><td className="py-2 pr-4 break-all">{u.email}</td><td className="py-2 pr-4">{u.verified ? "Sim" : "Pendente"}</td><td className="py-2 whitespace-nowrap">{new Date(u.created_at).toLocaleDateString("pt-BR")}</td></tr>)}</tbody>
         </table>
       </div>}
       <div className="mt-4 flex items-center justify-between text-sm">

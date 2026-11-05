@@ -41,6 +41,12 @@ function Extras() {
       <h1 className="text-4xl font-extrabold">EXTRAS</h1>
       <Button variant="ghost" onClick={() => void sair()} className="text-brand-ink hover:bg-brand-card">Sair da conta</Button>
     </div>
+    <section className="mt-8">
+      <h2 className="mb-4 text-2xl font-bold">Vídeo exclusivo</h2>
+      <div className="aspect-video w-full overflow-hidden rounded-lg">
+        <iframe className="h-full w-full" src="https://www.youtube-nocookie.com/embed/MHOtZNkhIlg" title="Vídeo exclusivo dos Extras" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy" />
+      </div>
+    </section>
     <section className="mt-8 rounded-lg bg-brand-card p-6 sm:p-8">
       <h2 className="text-2xl font-bold">Guia rápido de proteção em família</h2>
       <ol className="mt-4 list-decimal space-y-2 pl-5">{tips.map((t) => <li key={t}>{t}</li>)}</ol>
