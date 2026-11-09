@@ -29,6 +29,58 @@ const tips = [
   "Em caso de abuso ou exploração, denuncie pelo Disque 100 ou SaferNet.",
 ];
 
+function ExclusiveVideo() {
+  const playerRef = useRef<HTMLIFrameElement>(null);
+  const [soundOn, setSoundOn] = useState(false);
+
+  function command(func: "mute" | "unMute" | "setVolume" | "playVideo", args: number[] = []) {
+    playerRef.current?.contentWindow?.postMessage(
+      JSON.stringify({ event: "command", func, args }),
+      "https://www.youtube-nocookie.com",
+    );
+  }
+
+  function startVideo() {
+    command("mute");
+    command("playVideo");
+  }
+
+  function enableSound() {
+    command("unMute");
+    command("setVolume", [100]);
+    command("playVideo");
+    setSoundOn(true);
+  }
+
+  return (
+    <>
+      <div className="aspect-video w-full overflow-hidden rounded-lg bg-brand-ink">
+        <iframe
+          ref={playerRef}
+          className="h-full w-full border-0"
+          src="https://www.youtube-nocookie.com/embed/MHOtZNkhIlg?autoplay=1&mute=1&playsinline=1&enablejsapi=1&rel=0"
+          title="Vídeo exclusivo dos Extras"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          loading="eager"
+          onLoad={startVideo}
+        />
+      </div>
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+        <p className="text-sm opacity-75" role="status">
+          {soundOn ? "Som ativado." : "O vídeo começou automaticamente sem som."}
+        </p>
+        {!soundOn && (
+          <Button type="button" onClick={enableSound} className="gap-2 bg-brand-accent text-brand-white hover:bg-brand-accent/90">
+            <Volume2 className="size-4" aria-hidden="true" />
+            Ativar som
+          </Button>
+        )}
+      </div>
+    </>
+  );
+}
+
 function Extras() {
   const navigate = useNavigate();
   const qc = useQueryClient();
