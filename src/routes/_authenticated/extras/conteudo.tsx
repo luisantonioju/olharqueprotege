@@ -1,5 +1,7 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
+import { Volume2 } from "lucide-react";
+import { useRef, useState } from "react";
 import { SiteLayout } from "@/components/site";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
