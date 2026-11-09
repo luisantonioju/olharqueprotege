@@ -97,9 +97,7 @@ function Extras() {
     </div>
     <section className="mt-8">
       <h2 className="mb-4 text-2xl font-bold">Vídeo exclusivo</h2>
-      <div className="aspect-video w-full overflow-hidden rounded-lg">
-        <iframe className="h-full w-full" src="https://www.youtube-nocookie.com/embed/MHOtZNkhIlg" title="Vídeo exclusivo dos Extras" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy" />
-      </div>
+      <ExclusiveVideo />
     </section>
     <section className="mt-8 rounded-lg bg-brand-card p-6 sm:p-8">
       <h2 className="text-2xl font-bold">Guia rápido de proteção em família</h2>
